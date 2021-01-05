@@ -1,12 +1,20 @@
-c=(function(string, seperator){
+module.exports = {
+    /**
+     * GD서버에서 받은 Raw데이터를 JSObject로 변환시킵니다.
+     * 
+     * @param {String} string raw데이터
+     * @param {String} seperator 분리할 문자
+     * @returns {Object} 변환된 JSObject
+     */
+    convert: function(string, seperator){
     let splitted = string.split(seperator);
     let result = {};
     for(let i = 0; i < splitted.length; i += 2){
         result[splitted[i]] = splitted[i+1];
     }
     return result;
-});
-k={
+},
+
 /* LEVEL INDEX */
     LEVEL_ID: 1,
     LEVEL_NAME: 2,
@@ -130,5 +138,3 @@ k={
     GAUNTLET_ID: 1,
     GAUNTLET_LEVELS: 3
 };
-
-module.exports = { convert:c, key:k };

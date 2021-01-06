@@ -7,13 +7,13 @@ module.exports = {
      * @returns {Object} 변환된 JSObject
      */
     convert: function(string, seperator){
-    let splitted = string.split(seperator);
-    let result = {};
-    for(let i = 0; i < splitted.length; i += 2){
-        result[splitted[i]] = splitted[i+1];
-    }
-    return result;
-},
+        let splitted = string.split(seperator);
+        let result = {};
+        for(let i = 0; i < splitted.length; i += 2){
+            result[splitted[i]] = splitted[i+1];
+        }
+        return result;
+    },
 
 /* LEVEL INDEX */
     LEVEL_ID: 1,

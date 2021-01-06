@@ -8,7 +8,6 @@ const GDLevelField = require('../GDLevelField');
 function LevelSearchFilter(field){
     this.diff = "-";
     this.len = "-";
-    this.demonFilter = null;
     this.type = !field ? GDLevelField.REGULAR : field;
     this.str = "";
     this.page = 0;

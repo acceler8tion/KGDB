@@ -12,8 +12,8 @@ function GDMusic(author, id, name, size, url, downloadURL) {
     this.id = id;
     this.name = name;
     this.author = author;
-    this.size = size || '0MB';
-    this.url = url || '';
+    this.size = size;
+    this.url = url;
     this.downloadURL = decodeURIComponent(downloadURL || '');
 }
 

@@ -57,9 +57,9 @@ module.exports={
     },
 
     /**
-     * raw string에서 노래 정보를 추출합니다.
+     * 서버에서 받은 데이터에서 노래 정보를 추출합니다.
      * 
-     * @param {Array<String>} songInfo 추출전 raw string
+     * @param {Array<String>} songInfo 추출전 데이터
      * @returns {Object} 추출된 노래정보
      */
     extractSongInfo: function(songInfo) {
@@ -99,7 +99,7 @@ module.exports={
     },
 
     /**
-     * raw string에서 유저 정보를 추출합니다.
+     * 서버에서 받은 데이터에서 유저 정보를 추출합니다.
      * 
      * @param {Array<String>} userInfo 추출전 raw string
      * @returns {Object} 추출된 유저정보

@@ -29,7 +29,7 @@ module.exports=(function(){
         
     }
 
-    GDClient.prototype.getLevelById = function(id, preLevel) {
+    GDClient.prototype.getLevelById = function(id) {
 
     }
 })();

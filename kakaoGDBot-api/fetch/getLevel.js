@@ -25,9 +25,9 @@ const orbs = [0, 0, 50, 75, 125, 175, 225, 275, 350, 425, 500];
  * @param {Object} preLevelUser merge할 이전레벨 유저 데이터
  * @param {GDMusic} preLevelMusic merge할 이전레벨 음원 데이터
  * @param {Object} defaultOption 기본 옵션값
- * @returns {Object} 갖고온 레벨
+ * @returns {Object} 요청한 레벨
  */
-exports.getLevelById = function(id, preLevel, preLevelUser, preLevelMusic, defaultOption) {
+exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOption) {
 
     let param = new Param();
     param.add("levelID", id);

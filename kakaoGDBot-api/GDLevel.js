@@ -17,9 +17,9 @@ const DemonlistData = require('./DemonlistData');
  * @param {Number} diamonds 레벨 클리어 시 획득가능한 다이아몬드 갯수
  * @param {Boolean} featured 레벨 피처드 여부
  * @param {Boolean} epic 레벨 에픽 여부
- * @param {Number} gameVersion 레벨 업로드당시 게임 버전
+ * @param {String} gameVersion 레벨 업로드당시 게임 버전
  * @param {Number} version 레벨 버전
- * @param {Number} copiedID 오리지널 레벨 아이디
+ * @param {Number} originalID 오리지널 레벨 아이디
  * @param {Boolean} twoPlayer Two-Player 여부
  * @param {Number} coins 코인 갯수
  * @param {Boolean} verifiedCoins 은색 유코 여부
@@ -27,7 +27,6 @@ const DemonlistData = require('./DemonlistData');
  * @param {Number} objects 레벨 오브젝트 갯수
  * @param {Boolean} large 레벨 오브젝트 수가 40000개 초과인지 에 대한 여부
  * @param {Number} cp 레벨 제작자가 받은 cp수
- * @param {String} difficultyFace 레벨 난이도 key(core에서 다룰 예정)
  * @param {GDMusic} song 레벨 음원
  * @param {DemonlistData} demonList 레벨이 데몬리스트에 등재되어 있을 시 데몬리스트 데이터 
  * @param {String} uploaded 레벨 업로드 일자
@@ -38,8 +37,8 @@ const DemonlistData = require('./DemonlistData');
  * @param {String} data Gzip으로 압축된 레벨 데이터
  */
 function GDLevel(name, id, description, author, difficulty, downloads, likes, length,
-        stars, orbs, diamonds, featured, epic, gameVersion, version, copiedID, twoPlayer,
-        coins, verifiedCoins, starsRequested, objects, large, cp, difficultyFace, song, demonList,
+        stars, orbs, diamonds, featured, epic, gameVersion, version, originalID, twoPlayer,
+        coins, verifiedCoins, starsRequested, objects, large, cp, song, demonList,
         uploaded, updated, password, ldm, extraString, data) {
 
     this.name = name;
@@ -57,7 +56,7 @@ function GDLevel(name, id, description, author, difficulty, downloads, likes, le
     this.epic = epic;
     this.gameVersion = gameVersion;
     this.version = version;
-    this.copiedID = copiedID;
+    this.originalID = originalID;
     this.twoPlayer = twoPlayer;
     this.coins = coins;
     this.verifiedCoins = verifiedCoins;
@@ -65,7 +64,6 @@ function GDLevel(name, id, description, author, difficulty, downloads, likes, le
     this.objects = objects;
     this.large = large;
     this.cp = cp;
-    this.difficultyFace = difficultyFace;
     this.song = song;
     this.demonList = demonList;
     this.uploaded = uploaded;
@@ -74,6 +72,46 @@ function GDLevel(name, id, description, author, difficulty, downloads, likes, le
     this.ldm = ldm;
     this.extraString = extraString;
     this.data = data;
+}
+
+GDLevel.prototype.toString = function() {
+    return "name="+this.name+
+            "\nid="+this.id+
+            "\ndescription="+this.description+
+            "\nauthor={"+
+            "\nname="+this.author.name+
+            "\nplayerId="+this.author.playerId+
+            "\naccountId="+this.author.accountId+
+            "\n}"+
+            "\ndifficulty="+this.description+
+            "\ndownloads="+this.downloads+
+            "\nlikes="+this.likes+
+            "\nlength="+this.length+
+            "\nstars="+this.stars+
+            "\norbs="+this.orbs+
+            "\ndiamonds="+this.diamonds+
+            "\nfeatured="+this.featured+
+            "\nepic="+this.epic+
+            "\ngameVersion="+this.gameVersion+
+            "\nversion="+this.version+
+            "\noriginalID="+this.originalID+
+            "\ntwoPlayer="+this.twoPlayer+
+            "\ncoins="+this.coins+
+            "\nverifiedCoins="+this.verifiedCoins+
+            "\nstarsRequested="+this.starsRequested+
+            "\nobjects="+this.objects+
+            "\nlarge="+this.large+
+            "\ncp="+this.cp+
+            "\nsong={\n"+
+            this.song+
+            "\n}"+
+            "\ndemonList="+this.demonList+
+            "\nuploaded="+this.uploaded+
+            "\nupdated="+this.updated+
+            "\npassword="+this.password+
+            "\nldm="+this.ldm+
+            "\nextraString="+this.extraString+
+            "\ndata="+(!this.data ? 0 : this.data.length)
 }
 
 module.exports = GDLevel;

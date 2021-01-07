@@ -12,6 +12,26 @@ module.exports = {
      * @returns {String}} 레벨의 절대 난이도
      */
     getAbsoluteLength: function (l){
-        return this[l];
+        let len;
+        switch(l) {
+            case "0":
+                len = this.TINY;
+                break;
+            case "1":
+                len = this.SHORT;
+                break;
+            case "2":
+                len = this.MEDIUM;
+                break;
+            case "3":
+                len = this.LONG;
+                break;
+            case "4":
+                len = this.XL;
+                break;
+            default:
+                len = this.TINY;
+        }
+        return len;
     }
 };

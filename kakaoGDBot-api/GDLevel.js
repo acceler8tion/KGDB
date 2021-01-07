@@ -83,7 +83,7 @@ GDLevel.prototype.toString = function() {
             "\nplayerId="+this.author.playerId+
             "\naccountId="+this.author.accountId+
             "\n}"+
-            "\ndifficulty="+this.description+
+            "\ndifficulty="+this.difficulty+
             "\ndownloads="+this.downloads+
             "\nlikes="+this.likes+
             "\nlength="+this.length+

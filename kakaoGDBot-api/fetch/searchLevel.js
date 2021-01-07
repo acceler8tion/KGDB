@@ -13,13 +13,18 @@ const LevelSearchFilter = require('../util/LevelSearchFilter');
 const Param = require('../util/param');
 const URL = require('../util/url');
 const Base64 = require('../util/Crypto').Base64;
+const GDMusic = require('../GDMusic');
+
+const orbs = [0, 0, 50, 75, 125, 175, 225, 275, 350, 425, 500];
 
 /**
+ * query에 해당하는 레벨들을 검색합니다.
  * 
- * @param {LevelSearchFilter} query 
- * @param {Object} config 
+ * @param {LevelSearchFilter} query 레벨 검색 필터
+ * @param {Object} defaultOption 기본 옵션값
+ * @returns {Object} 검색 결과
  */
-exports.searchLevel = function(query, config) {
+exports.searchLevel = function(query, defaultOption) {
 
     let param = new Param();
     param.add("type", query.type)
@@ -40,9 +45,9 @@ exports.searchLevel = function(query, config) {
     if(query.customSong !== undefined) param.add("customSong", query.customSong);
     if(query.completedLevels !== undefined) param.add("completedLevels", query.completedLevels);
 
-    let configKs = Object.keys(config);
-    for(k of configKs) {
-        param.add(k, configKs[k]);
+    let ks = Object.keys(defaultOption);
+    for(k of ks) {
+        param.add(k, defaultOption[k]);
     }
 
     let result = {
@@ -56,13 +61,17 @@ exports.searchLevel = function(query, config) {
         error: {
             isError: false,
             customMessage: "",
-            errorClassName: null
+            errorClassName: null,
+            stack: null
         }
     }
+
+    param = param.build();
+    Log.d(param);
     try {
         let response = Jsoup.connect(URL.load(URL.LEVEL_SEARCH))
                             .timeout(20000)
-                            .requestBody(param.build())
+                            .requestBody(param)
                             .method(Connection.Method.POST)
                             .execute();
         let data = response.body().toString();
@@ -85,6 +94,7 @@ exports.searchLevel = function(query, config) {
             let levelId = data[Converter.LEVEL_ID];
             let creatorId = ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_CREATOR_ID], "0");
             let userInfo = users[creatorId];
+            let songInfo = songs[data[Converter.LEVEL_SONG_ID]];
             result.levels.push(
                     new GDLevel(
                             data[Converter.LEVEL_NAME],
@@ -101,13 +111,38 @@ exports.searchLevel = function(query, config) {
                             +data[Converter.LEVEL_LIKES],
                             GDLength.getAbsoluteLength(ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_LENGTH], "0")),
                             +data[Converter.LEVEL_STARS],
-                            
+                            orbs[+data[Converter.LEVEL_STARS]],
+                            data[Converter.LEVEL_STARS] < 2 ? 0 : (+data[Converter.LEVEL_STARS])+2,
+                            data[Converter.LEVEL_FEATURED_SCORE] > 0,
+                            data[Converter.LEVEL_IS_EPIC] > 0,
+                            (data[Converter.LEVEL_GAME_VERSION] > 17 ? (data[Converter.LEVEL_GAME_VERSION] / 10).toFixed(1) 
+                                                        : (data[Converter.LEVEL_GAME_VERSION] == 11 ? "1.8" 
+                                                                    : (data[Converter.LEVEL_GAME_VERSION] == 10 ? "1.7" : "Pre-1.7"))),
+                            +data[Converter.LEVEL_VERSION],
+                            +data[Converter.LEVEL_ORIGINAL],
+                            data[Converter.LEVEL_IS_TWOPLAYER] > 0,
+                            +data[Converter.LEVEL_COIN_COUNT],
+                            data[Converter.LEVEL_COIN_VERIFIED] > 0,
+                            +data[Converter.LEVEL_REQUESTED_STARS],
+                            +data[Converter.LEVEL_OBJECT_COUNT],
+                            data[Converter.LEVEL_OBJECT_COUNT] > 40000,
+                            (+(data[Converter.LEVEL_STARS] > 0)) + (+(data[Converter.LEVEL_FEATURED_SCORE] > 0)) + (+(data[Converter.LEVEL_IS_EPIC] > 0)),
+                            ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_SONG_ID], "0") == "0" ? GDMusic.basicSongs[data[Converter.LEVEL_AUDIO_TRACK]]
+                                                        : (!songInfo ? GDMusic.EMPTY : songInfo),
+                            null,
+                            ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_UPLOADED_TIMESTAMP], "NA") + " ago",
+                            ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_LAST_UPDATED_TIMESTAMP], "NA") + " ago",
+                            null,
+                            null,
+                            null,
+                            null
                     )
-            )
+            );
         }
     } catch(e) {
         result.error.isError = true;
         result.error.customMessage = e.message;
+        result.error.stack = e.stack;
         if(e instanceof FailedRequestException) {
             result.error.errorClassName = "FailedRequestException";
         } else {

@@ -1,5 +1,5 @@
 const GDMusic = require('./GDMusic');
-const DemonlistData = require('./DemonlistData');
+const { DemonListData } = require('./demonlist');
 
 /**
  * GDLevel 객체
@@ -28,7 +28,7 @@ const DemonlistData = require('./DemonlistData');
  * @param {Boolean} large 레벨 오브젝트 수가 40000개 초과인지 에 대한 여부
  * @param {Number} cp 레벨 제작자가 받은 cp수
  * @param {GDMusic} song 레벨 음원
- * @param {DemonlistData} demonList 레벨이 데몬리스트에 등재되어 있을 시 데몬리스트 데이터 
+ * @param {DemonListData} demonList 레벨이 데몬리스트에 등재되어 있을 시 데몬리스트 데이터 
  * @param {String} uploaded 레벨 업로드 일자
  * @param {String} updated 레벨 마지막 업데이트 일자
  * @param {Number} password 레벨 복사 비밀번호

@@ -12,7 +12,7 @@ const ExtraUtils = require('../util/ExtraUtils');
 const LevelSearchFilter = require('../util/LevelSearchFilter');
 const Param = require('../util/param');
 const URL = require('../util/url');
-const Base64 = require('../util/Crypto').Base64;
+const { Base64 } = require('../util/Crypto');
 const GDMusic = require('../GDMusic');
 
 const orbs = [0, 0, 50, 75, 125, 175, 225, 275, 350, 425, 500];
@@ -90,7 +90,7 @@ exports.searchLevel = function(query, defaultOption) {
 
         for(lv of levels) {
             let data = Converter.convert(lv, ":");
-            let levelId = data[Converter.LEVEL_ID];
+            let levelId = +data[Converter.LEVEL_ID];
             let creatorId = ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_CREATOR_ID], "0");
             let userInfo = users[creatorId];
             let songInfo = songs[data[Converter.LEVEL_SONG_ID]];

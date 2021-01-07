@@ -1,9 +1,9 @@
 module.exports = {
-    "0": "TINY",
-    "1": "SHORT",
-    "2": "MEDIUM",
-    "3": "LONG",
-    "4": "XL",
+    TINY: "TINY",
+    SHORT: "SHORT",
+    MEDIUM: "MEDIUM",
+    LONG: "LONG",
+    XL: "XL",
 
     /**
      * 레벨의 절대 길이를 반환합니다.

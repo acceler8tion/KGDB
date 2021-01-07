@@ -67,7 +67,6 @@ exports.searchLevel = function(query, defaultOption) {
     }
 
     param = param.build();
-    Log.d(param);
     try {
         let response = Jsoup.connect(URL.load(URL.LEVEL_SEARCH))
                             .timeout(20000)

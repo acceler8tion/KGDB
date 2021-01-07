@@ -215,7 +215,7 @@ LevelSearchFilter.prototype.toggleCoins = function(bool) {
  * @returns {LevelSearchFilter} 현재 필터 
  */
 LevelSearchFilter.prototype.toggleEpic = function(bool) {
-    this.epic = 0+bool;
+    this.epic = +bool;
     return this;
 }
 

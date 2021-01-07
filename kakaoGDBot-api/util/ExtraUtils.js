@@ -59,13 +59,12 @@ module.exports={
     /**
      * raw string에서 노래 정보를 추출합니다.
      * 
-     * @param {String} songInfo 추출전 raw string
+     * @param {Array<String>} songInfo 추출전 raw string
      * @returns {Object} 추출된 노래정보
      */
     extractSongInfo: function(songInfo) {
-        let songs = songInfo.split("~:~");
         let result = {};
-        for(s of songs) {
+        for(s of songInfo) {
             let data = Converter.convert(s, "~|~");
             let songId = data[Converter.SONG_ID];
             let songName = data[Converter.SONG_TITLE];
@@ -79,7 +78,7 @@ module.exports={
                         if(songId <= 469776) {
                             return "https://www.newgrounds.com/audio/download/"+songId;
                         } else {
-                            const url = "https://audio-download.ngfiles.com/";
+                            let url = "https://audio-download.ngfiles.com/";
                             let clonedSongName = songName;
                             clonedSongName = clonedSongName.replace(" ", "-");
                             clonedSongName = clonedSongName.replace("&", "amp");
@@ -102,13 +101,12 @@ module.exports={
     /**
      * raw string에서 유저 정보를 추출합니다.
      * 
-     * @param {String} userInfo 추출전 raw string
+     * @param {Array<String>} userInfo 추출전 raw string
      * @returns {Object} 추출된 유저정보
      */
     extractUserInfo: function(userInfo) {
-        let users = userInfo.split("|");
         let result = {};
-        for(u of users) {
+        for(u of userInfo) {
             let data = u.split(":");
             let playerId = data[0];
             result[playerId] = {

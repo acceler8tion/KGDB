@@ -1,7 +1,12 @@
-const InvalidParamException = require('./exception/InvalidParamException');
-const { searchLevel } = require('./fetch/searchLevel');
 const GDLevelField = require('./GDLevelField');
+
+const { searchLevel } = require('./fetch/searchLevel');
+const { getLevel } = require('./fetch/getLevel');
+
+const InvalidParamException = require('./exception/InvalidParamException');
+
 const LevelSearchFilter = require('./util/LevelSearchFilter');
+const GDMusic = require('./GDMusic');
 
 const DEFAULT_OPTION = {
     gameVersion: 21,
@@ -37,8 +42,8 @@ GDClient.prototype.setCredential = function(accountID, password, playerID) {
 /**
  * name에 해당하는 레벨을 검색합니다. (with LevelSearchFilter)
  * 
- * @param {String} name 
- * @param {LevelSearchFilter} query
+ * @param {String} name 레벨 이름
+ * @param {LevelSearchFilter} query 레벨 검색 쿼리(필터)
  * @returns {Object} 검색결과
  */
 GDClient.prototype.searchLevelByName = function(name, query) {
@@ -47,8 +52,17 @@ GDClient.prototype.searchLevelByName = function(name, query) {
     return searchLevel(query, DEFAULT_OPTION);
 }
 
-GDClient.prototype.getLevelById = function(id) {
-
+/**
+ * id에 해당하는 레벨을 갖고옵니다.
+ * 
+ * @param {Number} id 레벨 ID
+ * @param {String} preLevel merge할 이전레벨 데이터
+ * @param {Object} preLevelUser merge할 이전레벨 유저 데이터
+ * @param {GDMusic} preLevelMusic merge할 이전레벨 음원 데이터
+ * @returns {Object} 요청한 레벨
+ */
+GDClient.prototype.getLevelById = function(id, preLevel, preLevelUser, preLevelMusic) {
+    return getLevel(id, preLevel, preLevelUser, preLevelMusic, DEFAULT_OPTION);
 }
 
 module.exports = GDClient;

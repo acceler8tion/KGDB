@@ -12,8 +12,8 @@ function GDMusic(author, id, name, size, url, downloadURL) {
     this.id = id;
     this.name = name;
     this.author = author;
-    this.size = size;
-    this.url = url;
+    this.size = size || '0MB';
+    this.url = url || '';
     this.downloadURL = decodeURIComponent(downloadURL || '');
 }
 
@@ -42,5 +42,14 @@ GDMusic.basicSongs = {
     "19": new GDMusic("F-777", "Level 20", "Deadlocked"),
     "20": new GDMusic("MDK", "Level 21", "Fingerdash")
 };
+
+GDMusic.prototype.toString = function() {
+    return "id="+this.id+
+            "\nname="+this.name+
+            "\nauthor="+this.author+
+            "\nsize="+this.size+
+            "\nurl="+this.url+
+            "\ndownloadURL="+this.downloadURL;
+}
 
 module.exports = GDMusic;

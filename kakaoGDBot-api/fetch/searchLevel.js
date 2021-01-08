@@ -51,6 +51,7 @@ exports.searchLevel = function(query, defaultOption) {
     }
 
     let result = {
+        raw: '',
         levels: [],
         pageInfo: {
             currentPage: query.page,
@@ -74,6 +75,7 @@ exports.searchLevel = function(query, defaultOption) {
                             .method(Connection.Method.POST)
                             .execute();
         let data = response.body().toString();
+        result.raw = data;
 
         if(response.statusCode() == 500) throw new FailedRequestException("Server internal error");
         if(data == "-1") throw new FailedRequestException("Returned value `-1`");

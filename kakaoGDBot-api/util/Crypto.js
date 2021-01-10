@@ -29,7 +29,13 @@ exports.AssHole = {
      * @returns {String} 결과값
      */
     xor: function(str, key) {
-        return String.fromCodePoint.apply(null, str.split('').map((char, i) => char.charCodeAt(0) ^ key.toString().charCodeAt(i % key.toString().length)));
+        let mBytes = new java.lang.String(str).getBytes();
+        let kBytes = new java.lang.String(key).getBytes();
+        let result = new Array(mBytes.length);
+        for(let i = 0; i < mBytes.length; i++) {
+            result[i] = String.fromCharCode(mBytes[i] ^ kBytes[i % kBytes.length]);
+        }
+        return result.join("");
     },
 
     /**

@@ -51,8 +51,9 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
 
     param = param.build();
     try {
-        let response = Jsoup.connect(URL.load(URL.LEVEL_SEARCH))
+        let response = Jsoup.connect(URL.load(URL.DOWNLOAD_LEVEL))
                             .timeout(20000)
+                            .ignoreContentType(true)
                             .requestBody(param)
                             .method(Connection.Method.POST)
                             .execute();
@@ -63,7 +64,7 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
 
         let splitted = data.split("#");
         let newLevel = Converter.convert(splitted[0], ":");
-        let data = !preLevel ? newLevel : ExtraUtils.mergeWith(
+        data = !preLevel ? newLevel : ExtraUtils.mergeWith(
                 Converter.convert(preLevel, ":"),
                 newLevel
         );
@@ -82,6 +83,7 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
 
                 let response2 = Jsoup.connect("https://www.pointercrate.com/api/v1/demons/?name="+encodeURI(levelName))
                                         .timeout(8000)
+                                        .ignoreContentType(true)
                                         .method(Connection.Method.GET)
                                         .execute()
                                         .body()
@@ -94,6 +96,7 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
 
                         let response3 = Jsoup.connect("https://www.pointercrate.com/api/v2/demons/"+demonListId)
                                                 .timeout(8000)
+                                                .ignoreContentType(true)
                                                 .method(Connection.Method.GET)
                                                 .execute()
                                                 .body()
@@ -143,7 +146,7 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
             }
         }
 
-        result = new GDLevel(
+        result.level = new GDLevel(
                 data[Converter.LEVEL_NAME],
                 levelId,
                 Base64.decode(ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_DESCRIPTION], "")),
@@ -185,9 +188,9 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
                     } else if(pass == "Aw=="){
                         return 1;
                     } else{
-                        pass = AssHole.decrypt(pass, 26364);
-                        if(pass.length > 1) pass = pass.slice(1);
-                        return +(pass);
+                        pass = AssHole.decrypt(pass, "26364");
+                        //if(pass.length > 1) pass = pass.slice(1);
+                        return (pass);
                     }
                 }).bind(this)(),
                 ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_LDM], false),

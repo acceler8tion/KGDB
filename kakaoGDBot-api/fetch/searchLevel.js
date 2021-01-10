@@ -71,6 +71,7 @@ exports.searchLevel = function(query, defaultOption) {
     try {
         let response = Jsoup.connect(URL.load(URL.LEVEL_SEARCH))
                             .timeout(20000)
+                            .ignoreContentType(true)
                             .requestBody(param)
                             .method(Connection.Method.POST)
                             .execute();

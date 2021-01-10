@@ -1,4 +1,9 @@
+const GDLevel = require('./GDLevel');
+const GDMusic = require('./GDMusic');
+const GDDifficulty = require('./GDDifficulty');
+const GDLength = require('./GDLength');
 const GDLevelField = require('./GDLevelField');
+const { DemonListData, DemonListRecord, DemonListPlayer } = require('./demonlist');
 
 const { searchLevel } = require('./fetch/searchLevel');
 const { getLevel } = require('./fetch/getLevel');
@@ -6,7 +11,6 @@ const { getLevel } = require('./fetch/getLevel');
 const InvalidParamException = require('./exception/InvalidParamException');
 
 const LevelSearchFilter = require('./util/LevelSearchFilter');
-const GDMusic = require('./GDMusic');
 
 const DEFAULT_OPTION = {
     gameVersion: 21,
@@ -65,4 +69,14 @@ GDClient.prototype.getLevelById = function(id, preLevel, preLevelUser, preLevelM
     return getLevel(id, preLevel, preLevelUser, preLevelMusic, DEFAULT_OPTION);
 }
 
-module.exports = GDClient;
+exports.GDClient = GDClient;
+
+exports.GDLevel = GDLevel;
+exports.GDMusic = GDMusic;
+exports.GDDifficulty = GDDifficulty;
+exports.GDLength = GDLength;
+exports.GDLevelField = GDLevelField;
+exports.DemonListData = DemonListData;
+exports.DemonListRecord = DemonListRecord;
+exports.DemonListPlayer = DemonListPlayer;
+exports.LevelSearchFilter = LevelSearchFilter;

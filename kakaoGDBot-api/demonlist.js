@@ -24,6 +24,10 @@ function DemonListData(id, name, position, levelId, requirement, creators, recor
     Object.freeze(this);
 }
 
+DemonListData.prototype.toString = function() {
+    return JSON.stringify(this, null, 4);
+}
+
 /**
  * DemonList listed form 레코드 pojo
  * 
@@ -43,6 +47,10 @@ function DemonListRecord(id, player, progress, status, video) {
     Object.freeze(this);
 }
 
+DemonListRecord.prototype.toString = function() {
+    return JSON.stringify(this, null, 4);
+}
+
 /**
  * DemonList minimal form 플레이어 pojo
  * 
@@ -56,6 +64,10 @@ function DemonListPlayer(id, name, banned) {
     this.banned = banned;
 
     Object.freeze(this);
+}
+
+DemonListPlayer.prototype.toString = function() {
+    return JSON.stringify(this, null, 4);
 }
 
 exports.DemonListData = DemonListData;

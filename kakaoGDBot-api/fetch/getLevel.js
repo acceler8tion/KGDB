@@ -68,7 +68,7 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
                 Converter.convert(preLevel, ":"),
                 newLevel
         );
-        let levelId = +data[Converter.LEVEL_ID];
+        let levelID = +data[Converter.LEVEL_ID];
         let levelName = data[Converter.LEVEL_NAME];
         let levelDiff = GDDifficulty.getAbsoluteDifficulty(
             data[Converter.LEVEL_DIFFICULTY],
@@ -91,10 +91,10 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
                 response2 = JSON.parse(response2);
 
                 if(response2[0]) {
-                    let demonListId = response2[0].id;
+                    let demonListID = response2[0].id;
                     try {
 
-                        let response3 = Jsoup.connect("https://www.pointercrate.com/api/v2/demons/"+demonListId)
+                        let response3 = Jsoup.connect("https://www.pointercrate.com/api/v2/demons/"+demonListID)
                                                 .timeout(8000)
                                                 .ignoreContentType(true)
                                                 .method(Connection.Method.GET)
@@ -148,9 +148,9 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
 
         result.level = new GDLevel(
                 data[Converter.LEVEL_NAME],
-                levelId,
+                levelID,
                 Base64.decode(ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_DESCRIPTION], "")),
-                !preLevelUser ? { name: "-", playerId: 0, accountId: 0} : preLevelUser,
+                !preLevelUser ? { name: "-", playerID: 0, accountID: 0} : preLevelUser,
                 GDDifficulty.getAbsoluteDifficulty(
                         data[Converter.LEVEL_DIFFICULTY],
                         data[Converter.LEVEL_DEMON_DIFFICULTY],
@@ -190,7 +190,7 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
                     } else{
                         pass = AssHole.decrypt(pass, "26364");
                         //if(pass.length > 1) pass = pass.slice(1);
-                        return (pass);
+                        return pass.substring(1, 7);
                     }
                 }).bind(this)(),
                 ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_LDM], false),

@@ -93,17 +93,17 @@ exports.searchLevel = function(query, defaultOption) {
 
         for(lv of levels) {
             let data = Converter.convert(lv, ":");
-            let levelId = +data[Converter.LEVEL_ID];
-            let creatorId = ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_CREATOR_ID], "0");
-            let userInfo = users[creatorId];
+            let levelID = +data[Converter.LEVEL_ID];
+            let creatorID = ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_CREATOR_ID], "0");
+            let userInfo = users[creatorID];
             let songInfo = songs[data[Converter.LEVEL_SONG_ID]];
-            result.raw[""+levelId] = lv;
+            result.raw[""+levelID] = lv;
             result.levels.push(
                     new GDLevel(
                             data[Converter.LEVEL_NAME],
-                            levelId,
+                            levelID,
                             Base64.decode(ExtraUtils.replaceIfEmptyData(data[Converter.LEVEL_DESCRIPTION], "")),
-                            !userInfo ? { name: "-", playerId: 0, accountId: 0} : userInfo,
+                            !userInfo ? { name: "-", playerID: 0, accountID: 0} : userInfo,
                             GDDifficulty.getAbsoluteDifficulty(
                                     data[Converter.LEVEL_DIFFICULTY],
                                     data[Converter.LEVEL_DEMON_DIFFICULTY],

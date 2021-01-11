@@ -66,17 +66,17 @@ module.exports={
         let result = {};
         for(s of songInfo) {
             let data = Converter.convert(s, "~|~");
-            let songId = data[Converter.SONG_ID];
+            let songID = data[Converter.SONG_ID];
             let songName = data[Converter.SONG_TITLE];
-            result[songId] = new GDMusic(
+            result[songID] = new GDMusic(
                     this.replaceIfEmptyData(data[Converter.SONG_AUTHOR], "-"),
-                    songId,
+                    songID,
                     songName,
                     this.replaceIfEmptyData(data[Converter.SONG_SIZE], "0")+"MB",
-                    "https://www.newgrounds.com/audio/listen/"+songId,
+                    "https://www.newgrounds.com/audio/listen/"+songID,
                     (function(){
-                        if(songId <= 469776) {
-                            return "https://www.newgrounds.com/audio/download/"+songId;
+                        if(songID <= 469776) {
+                            return "https://www.newgrounds.com/audio/download/"+songID;
                         } else {
                             let url = "https://audio-download.ngfiles.com/";
                             let clonedSongName = songName;
@@ -88,7 +88,7 @@ module.exports={
                             if(clonedSongName.length > 27) {
                                 clonedSongName = clonedSongName.substring(0, 27);
                             }
-                            url = url + (songId+"").substring(0, 3) + "000/" + songId + "_" + clonedSongName + ".mp3";
+                            url = url + (songID+"").substring(0, 3) + "000/" + songID + "_" + clonedSongName + ".mp3";
                             return url;
                         }
                     }).bind(this)()
@@ -108,11 +108,11 @@ module.exports={
         let result = {};
         for(u of userInfo) {
             let data = u.split(":");
-            let playerId = data[0];
-            result[playerId] = {
+            let playerID = data[0];
+            result[playerID] = {
                 name: data[1],
-                playerId: data[0],
-                accountId: data[2]
+                playerID: data[0],
+                accountID: data[2]
             };
         }
 
@@ -130,7 +130,7 @@ module.exports={
             currentPage: +pageInfo[1],
             currentPageItemCount: +pageInfo[2],
             maxItemCount: +pageInfo[0],
-            maxPage: +pageInfo[0] / +pageInfo[2]
+            maxPage: Math.ceil(+pageInfo[0] / +pageInfo[2])
         };
     }
 }

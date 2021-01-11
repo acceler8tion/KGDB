@@ -5,17 +5,17 @@
  * @param {Number} id 데몬리스트 전용 데몬 ID
  * @param {String} name 데몬 이름
  * @param {Number} position 데몬리스트 순위
- * @param {Number} levelId 레벨 ID
+ * @param {Number} levelID 레벨 ID
  * @param {Number} requirement 최소한으로 요구되는 기록의 퍼센트
  * @param {Array<DemonListPlayer>} creators 데몬 제작자들
  * @param {Array<DemonListRecord>} records 데몬 기록들
  * @param {String} video 데몬 비디오 링크
  */
-function DemonListData(id, name, position, levelId, requirement, creators, records, video) {
+function DemonListData(id, name, position, levelID, requirement, creators, records, video) {
     this.id = id;
     this.name = name;
     this.position = position;
-    this.levelId = levelId;
+    this.levelID = levelID;
     this.requirement = requirement;
     this.creators = creators;
     this.records = records;

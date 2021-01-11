@@ -4,9 +4,12 @@ const GDDifficulty = require('./GDDifficulty');
 const GDLength = require('./GDLength');
 const GDLevelField = require('./GDLevelField');
 const { DemonListData, DemonListRecord, DemonListPlayer } = require('./demonlist');
+const CommentSort = require('./CommentSort');
+const Role = require('./Role');
 
 const { searchLevel } = require('./fetch/searchLevel');
 const { getLevel } = require('./fetch/getLevel');
+const { getLevelComment } = require('./fetch/getLevelComment');
 
 const InvalidParamException = require('./exception/InvalidParamException');
 
@@ -69,6 +72,19 @@ GDClient.prototype.getLevelById = function(id, preLevel, preLevelUser, preLevelM
     return getLevel(id, preLevel, preLevelUser, preLevelMusic, DEFAULT_OPTION);
 }
 
+/**
+ * id에 해당하는 레벨의 댓글 리스트를 갖고옵니다.
+ * 
+ * @param {Number} levelId 레벨 ID
+ * @param {Number} sort 정렬 방법(0: normal, 1: most liked)
+ * @param {Number} page 댓글 페이지
+ * @param {Number} count 한번에 가져올 댓글 갯수
+ * @returns {Object} 요청한 댓글 리스트
+ */
+GDClient.prototype.getCommentsById = function(levelId, sort, page, count) {
+    return getLevelComment(levelId, sort, page, count, DEFAULT_OPTION);
+}
+
 exports.GDClient = GDClient;
 
 exports.GDLevel = GDLevel;
@@ -79,4 +95,6 @@ exports.GDLevelField = GDLevelField;
 exports.DemonListData = DemonListData;
 exports.DemonListRecord = DemonListRecord;
 exports.DemonListPlayer = DemonListPlayer;
+exports.CommentSort = CommentSort;
+exports.Role = Role;
 exports.LevelSearchFilter = LevelSearchFilter;

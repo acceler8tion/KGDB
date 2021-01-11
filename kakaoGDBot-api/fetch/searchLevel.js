@@ -75,12 +75,12 @@ exports.searchLevel = function(query, defaultOption) {
                             .requestBody(param)
                             .method(Connection.Method.POST)
                             .execute();
-        let data = response.body().toString();
+        let dt = response.body().toString();
 
         if(response.statusCode() == 500) throw new FailedRequestException("Server internal error");
-        if(data == "-1") throw new FailedRequestException("Returned value `-1`");
+        if(dt == "-1") throw new FailedRequestException("Returned value `-1`");
 
-        let splitted = data.split("#");
+        let splitted = dt.split("#");
         let levels = splitted[0].split("|");
         let users = splitted[1].split("|");
         let songs = splitted[2].split("~:~");
@@ -89,6 +89,7 @@ exports.searchLevel = function(query, defaultOption) {
         users = ExtraUtils.extractUserInfo(users);
         songs = ExtraUtils.extractSongInfo(songs);
         pageInfo = ExtraUtils.extractPageInfo(pageInfo);
+        result.pageInfo = pageInfo;
 
         for(lv of levels) {
             let data = Converter.convert(lv, ":");

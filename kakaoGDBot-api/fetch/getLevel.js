@@ -57,14 +57,14 @@ exports.getLevel = function(id, preLevel, preLevelUser, preLevelMusic, defaultOp
                             .requestBody(param)
                             .method(Connection.Method.POST)
                             .execute();
-        let data = response.body().toString();
+        let dt = response.body().toString();
 
         if(response.statusCode() == 500) throw new FailedRequestException("Server internal error");
-        if(data == "-1") throw new FailedRequestException("Returned value `-1`");
+        if(dt == "-1") throw new FailedRequestException("Returned value `-1`");
 
-        let splitted = data.split("#");
+        let splitted = dt.split("#");
         let newLevel = Converter.convert(splitted[0], ":");
-        data = !preLevel ? newLevel : ExtraUtils.mergeWith(
+        let data = !preLevel ? newLevel : ExtraUtils.mergeWith(
                 Converter.convert(preLevel, ":"),
                 newLevel
         );

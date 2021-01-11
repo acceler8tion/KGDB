@@ -80,8 +80,8 @@ GDLevel.prototype.toString = function() {
             "\ndescription="+this.description+
             "\nauthor={"+
             "\nname="+this.author.name+
-            "\nplayerId="+this.author.playerId+
-            "\naccountId="+this.author.accountId+
+            "\nplayerID="+this.author.playerID+
+            "\naccountID="+this.author.accountID+
             "\n}"+
             "\ndifficulty="+this.difficulty+
             "\ndownloads="+this.downloads+

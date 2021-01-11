@@ -2,6 +2,7 @@ importClass(org.jsoup.Jsoup);
 importClass(org.jsoup.Connection);
 
 const GDLevel = require('../GDLevel');
+const GDMusic = require('../GDMusic');
 const GDDifficulty = require('../GDDifficulty');
 const GDLength = require('../GDLength');
 const { DemonListData, DemonListRecord, DemonListPlayer } = require('../demonlist');
@@ -13,7 +14,6 @@ const ExtraUtils = require('../util/ExtraUtils');
 const Param = require('../util/param');
 const URL = require('../util/url');
 const { Base64, AssHole } = require('../util/Crypto');
-const GDMusic = require('../GDMusic');
 
 const orbs = [0, 0, 50, 75, 125, 175, 225, 275, 350, 425, 500];
 

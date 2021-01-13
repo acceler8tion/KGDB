@@ -122,7 +122,7 @@ module.exports={
     /**
      * raw string에서 페이지 정보를 추출합니다.
      * 
-     * @param {String} pageInfo 추출전 raw string
+     * @param {Array<String>} pageInfo 추출전 raw string
      * @returns {Object} 추출된 페이지 정보
      */
     extractPageInfo: function(pageInfo) {

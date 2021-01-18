@@ -14,8 +14,8 @@
  * @param {Boolean} glowOutlineFL - 플레이어의 글로우 라인 여부(Only for listed form)
  * @param {Number} accountID - 플레이어의 Account ID
  * @param {Number} userCoins - 플레이어의 유저 코인 갯수
- * @param {Number} privateMessage - 플레이어의 개인 메시지 수신 범위
- * @param {Number} friendRequest - 플레이어의 친구 요청 허용 여부
+ * @param {Number} privateMessageState - 플레이어의 개인 메시지 수신 범위
+ * @param {Number} friendRequestState - 플레이어의 친구 요청 허용 여부
  * @param {String} youtube - 플레이어의 유튜브 링크
  * @param {Number} iconCube - 플레이어의 큐브 아이콘
  * @param {Number} iconShip - 플레이어의 비행 아이콘
@@ -30,12 +30,12 @@
  * @param {Number} diamonds - 플레이어의 다이아몬드 갯수
  * @param {Number} deathEffect - 플레이어의 데스 이팩트
  * @param {String} role - 플레이어의 지위
- * @param {Number} commentHistory - 플레이어의 코멘트 히스토리 공개 범위
+ * @param {Number} commentHistoryState - 플레이어의 코멘트 히스토리 공개 범위
  */
 function GDUser(name, playerID, stars, demons, cp, icon, color1, color2, 
-        secretCoins, iconType, glowOutlineFL, accountID, userCoins, privateMessage, friendRequest, 
+        secretCoins, iconType, glowOutlineFL, accountID, userCoins, privateMessageState, friendRequestState, 
         youtube, iconCube, iconShip, iconBall, iconUfo, iconWave, iconRobot, glowOutline, 
-        unsyncedGlobalRank, iconSpider, twitter, twitch, diamonds, deathEffect, role, commentHistory) {
+        unsyncedGlobalRank, iconSpider, twitter, twitch, diamonds, deathEffect, role, commentHistoryState) {
 
     this.name = name;
     this.playerID = playerID;
@@ -50,8 +50,8 @@ function GDUser(name, playerID, stars, demons, cp, icon, color1, color2,
     this.glowOutlineFL = glowOutlineFL;
     this.accountID = accountID;
     this.userCoins = userCoins;
-    this.privateMessage = privateMessage;
-    this.friendRequest = friendRequest;
+    this.privateMessageState = privateMessageState;
+    this.friendRequestState = friendRequestState;
     this.youtube = youtube;
     this.iconCube= iconCube;
     this.iconShip = iconShip;
@@ -67,7 +67,41 @@ function GDUser(name, playerID, stars, demons, cp, icon, color1, color2,
     this.diamonds = diamonds;
     this.deathEffect = deathEffect;
     this.role = role;
-    this.commentHistory = commentHistory;
+    this.commentHistoryState = commentHistoryState;
+}
+
+GDUser.prototype.toString = function() {
+    return "name="+this.name+
+            "\nplayerID="+this.playerID+
+            "\nstars="+this.stars+
+            "\ndemons="+this.demons+
+            "\ncp="+this.cp+
+            "\nicon="+this.icon+
+            "\ncolor1="+this.color1+
+            "\ncolor2="+this.color2+
+            "\nsecretCoins="+this.secretCoins+
+            "\niconType="+this.iconSpider+
+            "\nglowOutlineFL="+this.glowOutlineFL+
+            "\naccountID="+this.accountID+
+            "\nuserCoins="+this.userCoins+
+            "\nprivateMessageState="+this.privateMessageState+
+            "\nfriendRequestState="+this.friendRequestState+
+            "\nyoutube="+this.youtube+
+            "\niconCube="+this.iconCube+
+            "\niconShip="+this.iconShip+
+            "\niconBall="+this.iconBall+
+            "\niconUfo="+this.iconUfo+
+            "\niconWave="+this.iconWave+
+            "\niconRobot="+this.iconRobot+
+            "\nglowOutline="+this.glowOutline+
+            "\nunsyncedGlobalRank="+this.unsyncedGlobalRank+
+            "\niconSpider="+this.iconSpider+
+            "\ntwitter="+this.twitter+
+            "\ntwitch="+this.twitch+
+            "\ndiamonds="+this.diamonds+
+            "\ndeathEffect="+this.deathEffect+
+            "\nrole="+this.role+
+            "\ncommentHistoryState="+this.commentHistoryState
 }
 
 module.exports = GDUser;

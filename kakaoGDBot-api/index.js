@@ -10,10 +10,12 @@ const Role = require('./Role');
 const { searchLevel } = require('./fetch/searchLevel');
 const { getLevel } = require('./fetch/getLevel');
 const { getLevelComment } = require('./fetch/getLevelComment');
+const { getUserProfileByAccountID } = require('./fetch/getUserProfile');
 
 const InvalidParamException = require('./exception/InvalidParamException');
 
 const LevelSearchFilter = require('./util/LevelSearchFilter');
+const { AssHole } = require('./util/Crypto');
 
 const DEFAULT_OPTION = {
     gameVersion: 21,
@@ -24,7 +26,11 @@ const DEFAULT_OPTION = {
 
 function GDClient() {
     this.isLoggedIn = false;
-    this.credential = null;
+    this.credential = {
+        accountID: null,
+        password: null,
+        playerID: null
+    };
 }
 
 /**
@@ -41,7 +47,7 @@ GDClient.prototype.setCredential = function(accountID, password, playerID) {
     if(!playerID) throw new InvalidParamException("Invalid playerID!");
 
     this.credential.accountID = accountID;
-    this.credential.password = password;
+    this.credential.password = AssHole.encrypt(password, "37526");
     this.credential.playerID = playerID;
     this.isLoggedIn = true;
 }
@@ -83,6 +89,10 @@ GDClient.prototype.getLevelById = function(id, preLevel, preLevelUser, preLevelM
  */
 GDClient.prototype.getCommentsById = function(levelId, sort, page, count) {
     return getLevelComment(levelId, sort, page, count, DEFAULT_OPTION);
+}
+
+GDClient.prototype.getUserProfileByAccountID = function(accountID) {
+    return getUserProfileByAccountID(accountID, this.credential, DEFAULT_OPTION);
 }
 
 exports.GDClient = GDClient;

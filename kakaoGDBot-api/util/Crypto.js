@@ -46,7 +46,7 @@ exports.AssHole = {
      * @returns {String} 결과값
      */
     encrypt: function(str, key) {
-        return java.util.Base64.getUrlEncoder().encodeToString(new java.lang.String(this.xor(str, key).getBytes()));
+        return java.util.Base64.getUrlEncoder().encodeToString(new java.lang.String(this.xor(str, key)).getBytes());
     },
 
     /**
